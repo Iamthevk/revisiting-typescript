@@ -159,22 +159,105 @@ setProductSizes(Size.small);
 
 console.clear();
 
-class MYProduct {
+// class MYProduct {
+//   name: string;
+//   price: number;
+//   color: string = "orange";
+//   size?: Size;
+
+//   constructor(name: string, price: number) {
+//     this.name = name;
+//     this.price = price;
+//   }
+//   buy() {
+//     // console.log(this.price)
+//     return this;
+//   }
+// }
+// const milk = new MYProduct("amul", 36);
+// milk.color = "white";
+// milk.size = Size.medium;
+// console.log(milk.buy());
+
+class InventoryItemNew{
   name: string;
   price: number;
-  color: string = "orange";
-  size?: Size;
+  productType?: string = "";
 
-  constructor(name: string, price: number) {
+  constructor(name: string,price: number,productType: string){
     this.name = name;
     this.price = price;
+    this.productType = productType;
   }
   buy() {
-    // console.log(this.price)
+    console.log(this.price)
     return this;
   }
 }
-const milk = new MYProduct("amul", 36);
-milk.color = "white";
-milk.size = Size.medium;
-console.log(milk.buy());
+
+// Extending Classes 
+class MyProduct extends InventoryItemNew {
+    color: string = "orange";
+  size?: Size;
+
+  // constructor(name: string, price: number) {
+  //   super(name,price)
+  // //other stuff for product
+  // }
+  
+}
+
+// class WarrantyNew extends InventoryItemNew{
+//   startTime: Date;
+//   endTime: Date;
+
+//   constructor(name: string, price: number,startTime: Date, endTime : Date){
+//     super(name,price)
+//     this.startTime = startTime
+//     this.endTime = endTime
+    
+//   }
+// }
+
+//Implementing Interfaces on Classes in TypeScript
+
+interface WarrantyInfo{
+  msgBody(): string
+  msgSubject(): string
+}
+class WarrantyNew extends InventoryItemNew implements WarrantyInfo{
+  startTime: Date;
+  endTime: Date;
+
+  constructor(name: string, price: number,productType:string,startTime: Date, endTime : Date){
+    super(name,price,productType)
+    this.startTime = startTime
+    this.endTime = endTime
+    
+  }
+  msgBody() {
+      return (`Thank you for purchasing ${this.name} ${this.productType} of INR ${this.price} on ${this.startTime} and warranty will be valid till ${this.endTime} `)
+  }
+  msgSubject() {
+       return (`Company Name: ${this.name.toUpperCase()}` )
+  }
+
+}
+
+const bat = new MyProduct("mrf", 1200,"")
+// bat.buy()
+
+const fan = new WarrantyNew("usha",1500,"fan",new Date("Nov 4,2023 12:00:00"),new Date("Nov 4,2024 12:00:00"))
+const chair = new WarrantyNew("neelkamal", 4500, "chair", new Date("Nov 4,2023 12:00:00"),new Date("Nov 4,2024 12:00:00"))
+// fan.buy()
+
+// console.log(fan.msgBody())
+// console.log(fan.msgSubject())
+
+function warrantyCard(warrantyInfo: WarrantyInfo, to: string) {
+  console.log('Body:',  warrantyInfo.msgBody())
+  console.log("Subject:", warrantyInfo.msgSubject())
+  console.log("To", to)
+}
+warrantyCard(fan,"vijay.vuex@gmail.com")
+warrantyCard(chair,"vijay.vuex@gmail.com")
