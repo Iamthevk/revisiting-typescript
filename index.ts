@@ -259,5 +259,47 @@ function warrantyCard(warrantyInfo: WarrantyInfo, to: string) {
   console.log("Subject:", warrantyInfo.msgSubject())
   console.log("To", to)
 }
-warrantyCard(fan,"vijay.vuex@gmail.com")
-warrantyCard(chair,"vijay.vuex@gmail.com")
+// warrantyCard(fan,"vijay.vuex@gmail.com")
+// warrantyCard(chair,"vijay.vuex@gmail.com")
+
+
+// interface AnimalType{
+//   color: string;
+//   name: string;
+// }
+
+class Animal{
+  color: string;
+  name: string;
+ constructor( color: string, name: string){
+   this.color = color
+  this.name = name
+ }
+}
+
+class Cat extends Animal{
+//  private haveBigEyes: boolean // Property 'haveBigEyes' is private and only accessible within class
+// protected haveBigEyes: boolean    //Property 'haveBigEyes' is protected and only accessible within class 'Cat' and its subclasses
+readonly haveBigEyes: boolean
+numberOfeyes: number
+
+  constructor(color:string,name:string,haveBigEyes:boolean,numberOfeyes:number ){
+    super(color,name)
+     this.haveBigEyes = haveBigEyes
+     this.numberOfeyes = numberOfeyes
+  }
+}
+
+class Suzy extends Cat{
+  constructor(color:string,name:string,haveBigEyes:boolean,numberOfeyes:number){
+    super(color,name,haveBigEyes,numberOfeyes)
+  }
+}
+const suzy = new Suzy("white","suzy",false,2)
+
+const dog = new Animal("brown","jacky")
+
+const mona = new Cat("black","mona",true,2)
+// mona.haveBigEyes = false //Cannot assign to 'haveBigEyes' because it is a read-only 
+// console.log(dog)
+console.log(mona)

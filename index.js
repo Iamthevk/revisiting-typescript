@@ -156,5 +156,33 @@ function warrantyCard(warrantyInfo, to) {
     console.log("Subject:", warrantyInfo.msgSubject());
     console.log("To", to);
 }
-warrantyCard(fan, "vijay.vuex@gmail.com");
-warrantyCard(chair, "vijay.vuex@gmail.com");
+// warrantyCard(fan,"vijay.vuex@gmail.com")
+// warrantyCard(chair,"vijay.vuex@gmail.com")
+// interface AnimalType{
+//   color: string;
+//   name: string;
+// }
+class Animal {
+    constructor(color, name) {
+        this.color = color;
+        this.name = name;
+    }
+}
+class Cat extends Animal {
+    constructor(color, name, haveBigEyes, numberOfeyes) {
+        super(color, name);
+        this.haveBigEyes = haveBigEyes;
+        this.numberOfeyes = numberOfeyes;
+    }
+}
+class Suzy extends Cat {
+    constructor(color, name, haveBigEyes, numberOfeyes) {
+        super(color, name, haveBigEyes, numberOfeyes);
+    }
+}
+const suzy = new Suzy("white", "suzy", false, 2);
+const dog = new Animal("brown", "jacky");
+const mona = new Cat("black", "mona", true, 2);
+// mona.haveBigEyes = false //Cannot assign to 'haveBigEyes' because it is a read-only 
+// console.log(dog)
+console.log(mona);
