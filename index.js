@@ -217,7 +217,7 @@ function getNetPrice(price, discount, format) {
 const netPrice = getNetPrice(30, 5, true);
 //'netPrice' is of type 'unknown' until we assign type of netPrice as string type assertion
 // netPrice.indexOf("2")
-//Generics
+/* ***** Generics ***** */
 const books = ["Harry potter", "shazam", "spider man"];
 const obj = { id: 2, name: "SKY" };
 const clone = (value) => {
@@ -225,9 +225,28 @@ const clone = (value) => {
   return JSON.parse(json);
   return value;
 };
-console.log(clone(obj));
-console.log(clone(obj) === obj); // false becoz of deep clone
+// console.log(clone(obj));
+// console.log(clone(obj) === obj); // false becoz of deep clone
 const getName = clone(obj);
 // console.log( getName.name)
 const getBooks = clone(books); //clone<string[]>(books) we can also write like this
 // console.log(getBooks.length) // becoz of using generics TS know that books are type of string[]
+/* *****    Advanced Narrowing    **** */
+//Type Guards is used for narrowing in TS like we do conditionally in JS
+const reverse = (value) => {
+  if (typeof value === "string") {
+    return value.split("").reverse().join("");
+  } else {
+    return [...value].reverse();
+  }
+};
+function greeting(entity) {
+  if ("lastName" in entity) {
+    console.log(`Hello Mr ${entity.firstName} ${entity.lastName}`);
+  } else {
+    console.log(`Hello M/S ${entity.name}`);
+  }
+}
+const person2 = { firstName: "prem", lastName: "chand" };
+greeting(person2);
+greeting({ name: "xyz technologies" });

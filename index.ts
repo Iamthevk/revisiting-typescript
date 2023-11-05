@@ -360,7 +360,7 @@ const netPrice = getNetPrice(30, 5, true) as string;
 //'netPrice' is of type 'unknown' until we assign type of netPrice as string type assertion
 // netPrice.indexOf("2")
 
-//Generics
+/* ***** Generics ***** */
 
 const books = ["Harry potter", "shazam", "spider man"];
 const obj = { id: 2, name: "SKY" };
@@ -371,11 +371,73 @@ const clone = <T>(value: T): T => {
   return value;
 };
 
-console.log(clone(obj));
-console.log(clone(obj) === obj); // false becoz of deep clone
+// console.log(clone(obj));
+// console.log(clone(obj) === obj); // false becoz of deep clone
 
 const getName = clone(obj);
 // console.log( getName.name)
 
 const getBooks = clone(books); //clone<string[]>(books) we can also write like this
 // console.log(getBooks.length) // becoz of using generics TS know that books are type of string[]
+
+/* *****    Advanced Narrowing    **** */
+//Type Guards is used for narrowing in TS like we do conditionally in JS
+const reverse = (value: string | string[]) => {
+  if (typeof value === "string") {
+    return value.split("").reverse().join("");
+  } else {
+    return [...value].reverse();
+  }
+};
+// console.log(reverse("123")) // "321"
+// console.log(reverse(["a","b","c"])) // ["c","b","a"]
+
+// class Person{
+//   firstName: string;
+//   lastName: string;
+//   constructor(firstName:string,lastName:string){
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//   }
+// }
+// class Company{
+//   name : string
+//   constructor(name : string){
+//     this.name = name
+//   }
+// }
+// const person1 = new Person("Vijay","Kumar")
+// const company = new Company("UniFrontier Technologies")
+
+// function greeting(entity : Person | Company){
+//   if(entity instanceof Person){
+
+//     console.log(`Hello Mr ${entity.firstName} ${entity.lastName}`)
+//   }else{
+
+//     console.log(`Hello M/S ${entity.name}`)
+//   }
+// }
+
+// greeting(person1)
+// greeting(company)
+
+// if except of class we have interfaces
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+interface Company {
+  name: string;
+}
+
+function greeting(entity: Person | Company) {
+  if ("lastName" in entity) {
+    console.log(`Hello Mr ${entity.firstName} ${entity.lastName}`);
+  } else {
+    console.log(`Hello M/S ${entity.name}`);
+  }
+}
+const person2: Person = { firstName: "prem", lastName: "chand" };
+greeting(person2);
+greeting({ name: "xyz technologies" });
