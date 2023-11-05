@@ -179,32 +179,31 @@ console.clear();
 // milk.size = Size.medium;
 // console.log(milk.buy());
 
-class InventoryItemNew{
+class InventoryItemNew {
   name: string;
   price: number;
   productType?: string = "";
 
-  constructor(name: string,price: number,productType: string){
+  constructor(name: string, price: number, productType: string) {
     this.name = name;
     this.price = price;
     this.productType = productType;
   }
   buy() {
-    console.log(this.price)
+    console.log(this.price);
     return this;
   }
 }
 
-// Extending Classes 
+// Extending Classes
 class MyProduct extends InventoryItemNew {
-    color: string = "orange";
+  color: string = "orange";
   size?: Size;
 
   // constructor(name: string, price: number) {
   //   super(name,price)
   // //other stuff for product
   // }
-  
 }
 
 // class WarrantyNew extends InventoryItemNew{
@@ -215,91 +214,168 @@ class MyProduct extends InventoryItemNew {
 //     super(name,price)
 //     this.startTime = startTime
 //     this.endTime = endTime
-    
+
 //   }
 // }
 
 //Implementing Interfaces on Classes in TypeScript
 
-interface WarrantyInfo{
-  msgBody(): string
-  msgSubject(): string
+interface WarrantyInfo {
+  msgBody(): string;
+  msgSubject(): string;
 }
-class WarrantyNew extends InventoryItemNew implements WarrantyInfo{
+class WarrantyNew extends InventoryItemNew implements WarrantyInfo {
   startTime: Date;
   endTime: Date;
 
-  constructor(name: string, price: number,productType:string,startTime: Date, endTime : Date){
-    super(name,price,productType)
-    this.startTime = startTime
-    this.endTime = endTime
-    
+  constructor(
+    name: string,
+    price: number,
+    productType: string,
+    startTime: Date,
+    endTime: Date
+  ) {
+    super(name, price, productType);
+    this.startTime = startTime;
+    this.endTime = endTime;
   }
   msgBody() {
-      return (`Thank you for purchasing ${this.name} ${this.productType} of INR ${this.price} on ${this.startTime} and warranty will be valid till ${this.endTime} `)
+    return `Thank you for purchasing ${this.name} ${this.productType} of INR ${this.price} on ${this.startTime} and warranty will be valid till ${this.endTime} `;
   }
   msgSubject() {
-       return (`Company Name: ${this.name.toUpperCase()}` )
+    return `Company Name: ${this.name.toUpperCase()}`;
   }
-
 }
 
-const bat = new MyProduct("mrf", 1200,"")
+const bat = new MyProduct("mrf", 1200, "");
 // bat.buy()
 
-const fan = new WarrantyNew("usha",1500,"fan",new Date("Nov 4,2023 12:00:00"),new Date("Nov 4,2024 12:00:00"))
-const chair = new WarrantyNew("neelkamal", 4500, "chair", new Date("Nov 4,2023 12:00:00"),new Date("Nov 4,2024 12:00:00"))
+const fan = new WarrantyNew(
+  "usha",
+  1500,
+  "fan",
+  new Date("Nov 4,2023 12:00:00"),
+  new Date("Nov 4,2024 12:00:00")
+);
+const chair = new WarrantyNew(
+  "neelkamal",
+  4500,
+  "chair",
+  new Date("Nov 4,2023 12:00:00"),
+  new Date("Nov 4,2024 12:00:00")
+);
 // fan.buy()
 
 // console.log(fan.msgBody())
 // console.log(fan.msgSubject())
 
 function warrantyCard(warrantyInfo: WarrantyInfo, to: string) {
-  console.log('Body:',  warrantyInfo.msgBody())
-  console.log("Subject:", warrantyInfo.msgSubject())
-  console.log("To", to)
+  console.log("Body:", warrantyInfo.msgBody());
+  console.log("Subject:", warrantyInfo.msgSubject());
+  console.log("To", to);
 }
 // warrantyCard(fan,"vijay.vuex@gmail.com")
 // warrantyCard(chair,"vijay.vuex@gmail.com")
-
 
 // interface AnimalType{
 //   color: string;
 //   name: string;
 // }
 
-class Animal{
+class Animal {
   color: string;
   name: string;
- constructor( color: string, name: string){
-   this.color = color
-  this.name = name
- }
-}
-
-class Cat extends Animal{
-//  private haveBigEyes: boolean // Property 'haveBigEyes' is private and only accessible within class
-// protected haveBigEyes: boolean    //Property 'haveBigEyes' is protected and only accessible within class 'Cat' and its subclasses
-readonly haveBigEyes: boolean
-numberOfeyes: number
-
-  constructor(color:string,name:string,haveBigEyes:boolean,numberOfeyes:number ){
-    super(color,name)
-     this.haveBigEyes = haveBigEyes
-     this.numberOfeyes = numberOfeyes
+  constructor(color: string, name: string) {
+    this.color = color;
+    this.name = name;
   }
 }
 
-class Suzy extends Cat{
-  constructor(color:string,name:string,haveBigEyes:boolean,numberOfeyes:number){
-    super(color,name,haveBigEyes,numberOfeyes)
+class Cat extends Animal {
+  //  private haveBigEyes: boolean // Property 'haveBigEyes' is private and only accessible within class
+  // protected haveBigEyes: boolean    //Property 'haveBigEyes' is protected and only accessible within class 'Cat' and its subclasses
+  readonly haveBigEyes: boolean;
+  numberOfeyes: number;
+
+  constructor(
+    color: string,
+    name: string,
+    haveBigEyes: boolean,
+    numberOfeyes: number
+  ) {
+    super(color, name);
+    this.haveBigEyes = haveBigEyes;
+    this.numberOfeyes = numberOfeyes;
   }
 }
-const suzy = new Suzy("white","suzy",false,2)
 
-const dog = new Animal("brown","jacky")
+class Suzy extends Cat {
+  constructor(
+    color: string,
+    name: string,
+    haveBigEyes: boolean,
+    numberOfeyes: number
+  ) {
+    super(color, name, haveBigEyes, numberOfeyes);
+  }
+}
+const suzy = new Suzy("white", "suzy", false, 2);
 
-const mona = new Cat("black","mona",true,2)
-// mona.haveBigEyes = false //Cannot assign to 'haveBigEyes' because it is a read-only 
+const dog = new Animal("brown", "jacky");
+
+const mona = new Cat("black", "mona", true, 2);
+// mona.haveBigEyes = false //Cannot assign to 'haveBigEyes' because it is a read-only
 // console.log(dog)
-console.log(mona)
+// console.log(mona)
+
+// Type Assertion
+
+// const theCanvas = document.getElementById("the-canvas") as HTMLCanvasElement;
+// without assigning HTMLCanvasElement, we are getting HTMLElement when we hover
+// its a way to give typescript more information manually
+
+// function getNetPrice(price: number, discount: number, format: boolean): number | string{
+//   let netPrice = price * (1 - discount);
+//   return format ? `${netPrice}` : netPrice
+
+// }
+// const netPrice = getNetPrice(30,5,true) as string ; //netPrice: string | number
+// 👆 we already know that it will return string so we can give more information to typescript by assigning  as string in last;
+
+//we can also write netPrice like this
+// const netPrice = <string>getNetPrice(30,5,true);
+
+//type assertions are removed at compile-time and there is no runtime  checking associated with a type assertion
+
+// type Unknown
+function getNetPrice(
+  price: number,
+  discount: number,
+  format: boolean
+): unknown {
+  let netPrice = price * (1 - discount);
+  return format ? `${netPrice}` : netPrice;
+}
+const netPrice = getNetPrice(30, 5, true) as string;
+//'netPrice' is of type 'unknown' until we assign type of netPrice as string type assertion
+// netPrice.indexOf("2")
+
+//Generics
+
+const books = ["Harry potter", "shazam", "spider man"];
+const obj = { id: 2, name: "SKY" };
+
+const clone = <T>(value: T): T => {
+  const json = JSON.stringify(value);
+  return JSON.parse(json);
+  return value;
+};
+
+console.log(clone(obj));
+console.log(clone(obj) === obj); // false becoz of deep clone
+
+const getName = clone(obj);
+// console.log( getName.name)
+
+const getBooks = clone(books); //clone<string[]>(books) we can also write like this
+// console.log(getBooks.length) // becoz of using generics TS know that books are type of string[]
